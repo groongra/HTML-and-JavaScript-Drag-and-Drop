@@ -1,0 +1,93 @@
+<!DOCTYPE HTML5>
+<html>
+	<head>
+		<style>
+			#div1 { 
+				position: absolute;
+				left: 100px; 
+				top: 100px;
+				width: 200px; 
+				height: 200px;
+				background-color: red;
+			}
+			#div2 { 
+				position: absolute;
+				left: 300px; 
+				top: 100px;
+				width: 200px; 
+				height: 200px;
+				background-color: blue;
+			}
+			
+			#div3 { 
+				position: absolute;
+				left: 500px; 
+				top: 100px;
+				width: 200px; 
+				height: 200px;
+				background-color: green;
+			}
+		</style>
+		<title>Drag and drop II</title>
+		
+		<script type='text/javascript'>
+		
+			var selectedDiv = null;
+			var selectedDivOffsetX;
+			var selectedDivOffsetY;
+			
+			function declareDragAndDrop(){
+				var divList = document.getElementsByTagName("DIV"); 
+				
+				for (i = 0; i<divList.length; i++){
+					divList[i].addEventListener("mousedown",dragStart);
+				}				
+				
+			}
+			
+			function dragStart(evt){
+			
+				selectedDiv = evt.target;
+				
+				selectedDivOffsetX = evt.offsetX;
+				selectedDivOffsetY = evt.offsetY;
+				//var y = parseInt(document.getElementById("div1").style.top) + 'px';
+				
+				
+				/*Reduce all the items Z axis to simulate that the selected element floats over the rest*/
+				var divList = document.getElementsByTagName("DIV"); 
+				for (i = 0; i<divList.length; i++)	divList[i].style.zIndex=0;
+				selectedDiv.style.zIndex=1;
+				
+				document.addEventListener("mousemove",drag);
+				document.addEventListener("mouseup",dragEnd);				
+				return false;
+			}
+			
+			function drag(evt){
+				var xClick = evt.clientX;
+				var yClick = evt.clientY;
+				selectedDiv.style.left = parseInt(xClick)-selectedDivOffsetX+'px';
+				selectedDiv.style.top = parseInt(yClick)-selectedDivOffsetY+'px';
+				return false;
+			}
+			
+			function dragEnd(){
+				//document.getElementById("div1")
+				document.removeEventListener("mouseup",drag);
+				document.removeEventListener("mousemove",drag);
+				return false;
+			}
+			
+		</script>
+	</head>
+	<body onload="declareDragAndDrop()">
+		<p>This a drag example for html elements</p>
+		<p>Please drag one or multiple div elements around the screen</p>
+		<div id="div1"></div>
+		<div id="div2"></div>
+		<div id="div3"></div>
+		
+	</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Native HTML5 slider</title>
+		<script>
+			function initialize(){
+				document.getElementById('slider').addEventListener('change',displayDataInDisplay,false);
+			}
+			function displayDataInDisplay(evt){
+				
+				document.getElementById("textDisplay").value = evt.target.value;
+			}
+		</script>
+	</head>
+	<body onload='initialize()'>
+		<p>Create a slider using HTML basic functionality.  When the slide moves the value is updated on the text display</p>
+		<textarea id='textDisplay'></textarea>
+		<input id='slider' type='range' />
+	</body>
+
+</html>

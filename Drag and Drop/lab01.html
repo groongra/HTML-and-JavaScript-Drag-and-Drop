@@ -1,0 +1,56 @@
+<!DOCTYPE HTML5>
+<html>
+	<head>
+		<style>
+			#div1 { 
+				position: absolute;
+				left: 100px; 
+				top: 100px;
+				width: 200px; 
+				height: 200px;
+				background-color: red;
+			}
+		</style>
+		<title>Drag and drop</title>
+		
+		<script type='text/javascript'>
+		
+			function declareDragAndDropt(){
+				document.getElementById("div1").addEventListener("mousedown",dragStart);
+			}
+			
+			function dragStart(evt){
+				//var x = parseInt(document.getElementById("div1").style.left) + 'px';
+				//var y = parseInt(document.getElementById("div1").style.top) + 'px';
+				
+				//document.getElementById("div1")
+				document.addEventListener("mousemove",drag);
+				//document.getElementById("div1")
+				document.addEventListener("mouseup",dragEnd);				
+				return false;
+			}
+			
+			function drag(evt){
+				var xClick = evt.clientX;
+				var yClick = evt.clientY;
+				document.getElementById("div1").style.left = parseInt(xClick)+'px';
+				document.getElementById("div1").style.top = parseInt(yClick)+'px';
+				return false;
+			}
+			
+			function dragEnd(){
+				//document.getElementById("div1")
+				document.removeEventListener("mouseup",drag);
+				document.removeEventListener("mousemove",drag);
+				return false;
+			}
+			
+		</script>
+	</head>
+	<body onload="declareDragAndDropt()">
+		
+		<div id="div1"></div>
+		
+	</body>
+
+</html>

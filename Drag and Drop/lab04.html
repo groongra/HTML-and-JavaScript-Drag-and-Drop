@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#dropArea { 
+				position: absolute;
+				left: 300px; 
+				top: 100px;
+				width: 300px; 
+				height: 300px;
+				background-color: red;
+			}
+		</style>
+		<title>Drag and drop IV</title>
+		<script>
+			function initializeDragAndDropHandlers(){
+				if(window.File && window.FileList && window.FileReader){
+					alert('Welcome!');
+					var dropTarget = document.getElementById('dropArea');
+					dropTarget.addEventListener("dragover",dragOver,false);
+					dropTarget.addEventListener("dragleave",dragLeave,false);
+					dropTarget.addEventListener("drop",dropFile,false);
+
+				} else {
+					alert('Drag & Drop not suported for this browser')
+				}					
+			}
+			
+			function dragOver(evt){
+				document.getElementById("dropArea").style.backgroundColor = "blue";
+				evt.stopPropagation();
+				evt.preventDefault();
+				
+			}
+			function dragLeave(){
+				document.getElementById("dropArea").style.backgroundColor = "red";
+			}	
+			
+			function dropFile(evt){
+				evt.stopPropagation();
+				evt.preventDefault();
+				var file = "";
+				var fileProperties;
+				for(var i=0; i<evt.dataTransfer.files.length; i++){
+					file = evt.dataTransfer.files[i];
+					fileProperties += file.name +" "+ file.type +" "+ file.size+ "\n";
+				}
+				document.getElementById("textZone").value = fileProperties;
+				document.getElementById("dropArea").style.backgroundColor = "green";
+			}
+
+		</script>
+	</head>
+	<body onload='initializeDragAndDropHandlers()'>
+		<p>This a drag and drop example for any type of files</p>
+		<p>Please drag one or multiple files to the red square to display its content in the text area</p>
+		<div id="dropArea"></div>
+		<textarea id="textZone"></textarea>
+	</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			#dropArea { 
+				position: absolute;
+				left: 300px; 
+				top: 100px;
+				width: 300px; 
+				height: 300px;
+				background-color: red;
+			}
+		</style>
+		<title>Drag and drop IV</title>
+		<script>
+			function initializeDragAndDropHandlers(){
+				if(window.File && window.FileList && window.FileReader){
+					alert('Welcome!');
+					var dropTarget = document.getElementById('dropArea');
+					dropTarget.addEventListener("dragover",dragOver,false);
+					dropTarget.addEventListener("dragleave",dragLeave,false);
+					dropTarget.addEventListener("dragenter",dragEnter,false);
+					dropTarget.addEventListener("drop",dropFile,false);
+
+				} else {
+					alert('Drag & Drop not suported for this browser')
+				}					
+			}
+			
+			function dragOver(evt){
+				document.getElementById("dropArea").style.backgroundColor = "blue";
+				evt.stopPropagation();
+				evt.preventDefault();
+				
+			}
+			function dragEnter(evt){
+				evt.stopPropagation();
+				evt.preventDefault();
+				document.getElementById("dropArea").style.backgroundColor = "blue";
+			}
+			function dragLeave(evt){
+				evt.stopPropagation();
+				evt.preventDefault();
+				document.getElementById("dropArea").style.backgroundColor = "";
+			}	
+			
+			function dropFile(evt){
+				evt.stopPropagation();
+				evt.preventDefault();
+				var files = evt.dataTransfer.files;
+				document.getElementById("dropArea").style.backgroundColor = "green";
+				if (files.length>0) handleFiles(files);
+			}
+			
+			function handleFiles(files){
+				var reader = new FileReader();
+				reader.onload = handleReaderLoad;
+				reader.readAsDataURL(files[0]);
+			}
+			
+			function handleReaderLoad(evt){
+				document.getElementById("droppedImg").src = evt.target.result;
+			}
+			
+
+		</script>
+	</head>
+	<body onload='initializeDragAndDropHandlers()'>
+		<p>This a drag and drop example for image files</p>
+		<p>Please drag one image file to the red square to display it in the img tag</p>
+		<div id="dropArea"></div>
+		<img id="droppedImg" src="" />
+	</body>
+
+</html>

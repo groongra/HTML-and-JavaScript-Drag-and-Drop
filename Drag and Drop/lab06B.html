@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+
+<!--Same as lab 06 but additional functionality with JQuery libs-->
+<html>
+	<head>
+		<title>Using JQuery</title>
+		
+		<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css">
+		<script>
+			function initialize(){
+				$( "#slider" ).slider({value:[50]});
+				$( "#slider" ).on(
+					{ slide:
+						function(){
+							var setting = $("#slider").slider("option","value");
+							document.getElementById('textDisplay').value = setting;
+						}
+					}
+				);
+
+			}
+		</script>
+	</head>
+	<body onload='initialize()'>
+		<p>Create a slider using JQUERY LIBRARY. When the slide moves the value is updated on the text display</p>
+		<textarea id='textDisplay'></textarea>
+		<div id='slider'></div>
+	</body>
+
+</html>
